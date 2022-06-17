@@ -19,9 +19,20 @@ class OnboardingContainerViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
-        let page1 = ViewController1()
-        let page2 = ViewController2()
-        let page3 = ViewController3()
+        let page1 = OnboardingViewControllerBuilder()
+            .setImage(UIImage(named: "world")!)
+            .setLabel("rem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It w")
+            .build();
+        
+        let page2 = OnboardingViewControllerBuilder()
+            .setImage(UIImage(named: "thumbs")!)
+            .setLabel("b page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various v")
+            .build();
+        
+        let page3 = OnboardingViewControllerBuilder()
+            .setImage(UIImage(named: "delorean")!)
+            .setLabel("The standard chunk of Lorem Ipsum used since the 1500s is reproduced")
+            .build();
         
         pages.append(page1)
         pages.append(page2)

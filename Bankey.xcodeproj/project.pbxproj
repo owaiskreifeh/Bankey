@@ -14,6 +14,7 @@
 		A2B08C10285C97F3001AD17A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C0F285C97F3001AD17A /* LoginView.swift */; };
 		A2B08C13285CD1D0001AD17A /* OnboardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C12285CD1D0001AD17A /* OnboardingContainerViewController.swift */; };
 		A2B08C17285CDAA9001AD17A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C16285CDAA9001AD17A /* OnboardingViewController.swift */; };
+		A2B08C19285CEA06001AD17A /* OnboardingViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C18285CEA06001AD17A /* OnboardingViewControllerBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		A2B08C0F285C97F3001AD17A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A2B08C12285CD1D0001AD17A /* OnboardingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerViewController.swift; sourceTree = "<group>"; };
 		A2B08C16285CDAA9001AD17A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		A2B08C18285CEA06001AD17A /* OnboardingViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			children = (
 				A2B08C12285CD1D0001AD17A /* OnboardingContainerViewController.swift */,
 				A2B08C16285CDAA9001AD17A /* OnboardingViewController.swift */,
+				A2B08C18285CEA06001AD17A /* OnboardingViewControllerBuilder.swift */,
 			);
 			name = Onboarding;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2B08C10285C97F3001AD17A /* LoginView.swift in Sources */,
+				A2B08C19285CEA06001AD17A /* OnboardingViewControllerBuilder.swift in Sources */,
 				A2B08BFE285C94DE001AD17A /* LoginViewController.swift in Sources */,
 				A2B08C17285CDAA9001AD17A /* OnboardingViewController.swift in Sources */,
 				A2B08BFA285C94DE001AD17A /* AppDelegate.swift in Sources */,

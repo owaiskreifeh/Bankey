@@ -26,17 +26,17 @@ class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     func style(){
+        
+        view.backgroundColor = .systemBackground;
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false;
         stackView.axis = .vertical;
         stackView.spacing = 20;
         
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false;
         imageView.contentMode = .scaleAspectFit;
-        imageView.image = UIImage(named: "delorean")
         
         label.translatesAutoresizingMaskIntoConstraints = false;
-        label.text = "TEXT LABEL TODO, Really long long text with multiple lines and should fit perfectly and should be centerd";
         label.textAlignment = .center;
         label.adjustsFontForContentSizeCategory = true;
         label.numberOfLines = 0
