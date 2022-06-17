@@ -7,16 +7,22 @@
 
 import UIKit
 
+protocol OnboardingContainerViewControllerDelegate: AnyObject {
+    func didFinishOnboarding();
+}
+
 class OnboardingContainerViewController: UIViewController {
 
     let pageViewController: UIPageViewController
     var pages = [UIViewController]()
-    var currentVC: UIViewController {
-        didSet {
-        }
-    }
+    var currentVC: UIViewController;
+    
+    let skipButton: UIButton = UIButton(type: .system);
+    
+    weak var delegate: OnboardingContainerViewControllerDelegate?;
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
         let page1 = OnboardingViewControllerBuilder()
@@ -50,24 +56,12 @@ class OnboardingContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemPurple
+        setup();
+        style();
+        layout();
+
         
-        addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.didMove(toParent: self)
         
-        pageViewController.dataSource = self
-        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: pageViewController.view.topAnchor),
-            view.leadingAnchor.constraint(equalTo: pageViewController.view.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: pageViewController.view.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: pageViewController.view.bottomAnchor),
-        ])
-        
-        pageViewController.setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
-        currentVC = pages.first!
     }
 }
 
@@ -100,6 +94,55 @@ extension OnboardingContainerViewController: UIPageViewControllerDataSource {
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return pages.firstIndex(of: self.currentVC) ?? 0
+    }
+}
+
+extension OnboardingContainerViewController {
+    private func setup(){
+        
+        addChild(pageViewController)
+        pageViewController.didMove(toParent: self)
+        
+        pageViewController.dataSource = self
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        pageViewController.setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
+        
+        currentVC = pages.first!
+        
+        skipButton.addTarget(self, action: #selector(skipTapped), for: .primaryActionTriggered)
+    }
+    
+    private func style(){
+        
+        // Skip Button
+        skipButton.translatesAutoresizingMaskIntoConstraints = false;
+        skipButton.setTitle("Skip", for: [])
+    }
+    
+    private func layout(){
+        view.addSubview(pageViewController.view)
+        view.addSubview(skipButton);
+
+        NSLayoutConstraint.activate([
+            // Page View
+            view.topAnchor.constraint(equalTo: pageViewController.view.topAnchor),
+            view.leadingAnchor.constraint(equalTo: pageViewController.view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: pageViewController.view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: pageViewController.view.bottomAnchor),
+            
+            // Skip button
+            skipButton.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 2),
+            skipButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 2),
+        ])
+    }
+}
+
+// MARK: - Actions
+
+extension OnboardingContainerViewController {
+    @objc func skipTapped(_ sender: UIButton){
+        print("Skip");
+        delegate?.didFinishOnboarding()
     }
 }
 

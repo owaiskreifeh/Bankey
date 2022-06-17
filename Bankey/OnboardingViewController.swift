@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 class OnboardingViewController: UIViewController {
     
     let stackView = UIStackView();

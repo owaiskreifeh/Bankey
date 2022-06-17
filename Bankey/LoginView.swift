@@ -22,6 +22,9 @@ class LoginView: UIView {
         
         style();
         layout();
+        
+        usernameTextField.text="owais"
+        passwordTextField.text="qwe";
     }
     
     required init?(coder: NSCoder) {
