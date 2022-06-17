@@ -69,7 +69,6 @@ extension LoginViewController {
         view.addSubview(errorLabel);
 
         NSLayoutConstraint.activate([
-            
             // Title Label
             titleLabel.centerXAnchor.constraint(equalTo: sag.centerXAnchor),
             titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: sag.topAnchor, multiplier: 3),
