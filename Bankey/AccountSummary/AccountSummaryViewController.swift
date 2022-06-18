@@ -11,11 +11,7 @@ class AccountSummaryViewController: UIViewController {
     
     let tableView = UITableView();
     
-    let data = [
-        "Pacman",
-        "Space invader",
-        "Space patrol",
-    ]
+    var data: [SummaryCellView.ViewModel] = [];
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -35,7 +31,9 @@ extension AccountSummaryViewController {
         tableView.rowHeight = SummaryCellView.rowHeight;
         tableView.tableFooterView = UIView(); // blank uiview
         
-        setupHeaderView()
+        setupHeaderView();
+        
+        fetchData();
     }
     
     func setupHeaderView(){
@@ -78,13 +76,24 @@ extension AccountSummaryViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension AccountSummaryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard !data.isEmpty else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: SummaryCellView.reuseId) as! SummaryCellView;
-        cell.typeLabel.text = data[indexPath.row];
+        cell.configure(with: data[indexPath.row]);
         return cell;
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count;
+    }
+}
+
+
+// MARK: - Networking
+extension AccountSummaryViewController {
+    private func fetchData() {
+        data.append(SummaryCellView.ViewModel(accountType: .Banking, accountName: "Basic Savings"));
+        data.append(SummaryCellView.ViewModel(accountType: .CreditCard, accountName: "Visa Islamic Bank"));
+        data.append(SummaryCellView.ViewModel(accountType: .Investment, accountName: "General Saver"));
     }
 }

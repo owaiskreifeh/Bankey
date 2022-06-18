@@ -10,6 +10,8 @@ import UIKit;
 
 class SummaryCellView: UITableViewCell {
     
+    let viewModel: ViewModel? = nil;
+
     let typeLabel = UILabel();
     let underlineView = UIView();
     let nameLabel = UILabel();
@@ -21,7 +23,7 @@ class SummaryCellView: UITableViewCell {
     let chevronImageView = UIImageView();
     
     static let reuseId = "SummaryCell";
-    static let rowHeight = 100.0;
+    static let rowHeight: CGFloat = 112
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -58,6 +60,7 @@ extension SummaryCellView {
         // Balance stack view
         balanceStackView.translatesAutoresizingMaskIntoConstraints = false;
         balanceStackView.axis = .vertical;
+        balanceStackView.spacing = 0;
         
         // Balance label
         balanceLabel.text = "Balance Label";
@@ -65,10 +68,9 @@ extension SummaryCellView {
         balanceLabel.textAlignment = .right;
         
         // Balance amount label
-        balanceAmountLabel.text = "00.00";
-        balanceAmountLabel.font = UIFont.preferredFont(forTextStyle: .caption1);
+        balanceAmountLabel.attributedText = makeFormattedBalance(dollars: "929,466", cents: "34")
         balanceAmountLabel.textAlignment = .right;
-
+        
         
         // Chevron image
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false;
@@ -86,7 +88,7 @@ extension SummaryCellView {
         balanceStackView.addArrangedSubview(balanceAmountLabel);
         
         contentView.addSubview(chevronImageView);
-
+        
         NSLayoutConstraint.activate([
             // Type label
             typeLabel.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: topAnchor, multiplier: 2),
@@ -103,12 +105,61 @@ extension SummaryCellView {
             nameLabel.leadingAnchor.constraint(equalTo: typeLabel.leadingAnchor),
             
             // Balance stack view
-            balanceStackView.topAnchor.constraint(equalToSystemSpacingBelow: underlineView.bottomAnchor, multiplier: 1),
+            balanceStackView.topAnchor.constraint(equalToSystemSpacingBelow: underlineView.bottomAnchor, multiplier: 0),
             contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: balanceStackView.trailingAnchor, multiplier: 4),
-            
             // Chevron image
             chevronImageView.topAnchor.constraint(equalToSystemSpacingBelow: balanceLabel.topAnchor, multiplier: 1),
             contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: chevronImageView.trailingAnchor, multiplier: 1),
         ])
+    }
+}
+
+
+// MARK: - Text Styles
+extension SummaryCellView {
+    private func makeFormattedBalance(dollars: String, cents: String) -> NSMutableAttributedString {
+        let dollarSignAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
+        let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
+        let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote), .baselineOffset: 8]
+        
+        let rootString = NSMutableAttributedString(string: "$", attributes: dollarSignAttributes)
+        let dollarString = NSAttributedString(string: dollars, attributes: dollarAttributes)
+        let centString = NSAttributedString(string: cents, attributes: centAttributes)
+        
+        rootString.append(dollarString)
+        rootString.append(centString)
+        
+        return rootString
+    }
+}
+
+
+// MARK: - ViewModel
+extension SummaryCellView {
+    
+    enum AccountType: String {
+        case Banking, CreditCard, Investment;
+    }
+    
+    struct ViewModel {
+        let accountType: AccountType,
+            accountName: String;
+    }
+        
+    func configure(with vm: ViewModel) {
+        typeLabel.text = vm.accountType.rawValue;
+        nameLabel.text = vm.accountName;
+        switch vm.accountType {
+        case .Banking:
+            underlineView.backgroundColor = appColor;
+            balanceLabel.text = "Current Balance"
+        case .CreditCard:
+            underlineView.backgroundColor = .systemOrange;
+            balanceLabel.text = "Balance"
+        case .Investment:
+            balanceLabel.text = "Value"
+            underlineView.backgroundColor = .systemPurple;
+            
+        }
     }
 }
