@@ -50,7 +50,9 @@ extension SummaryCellView {
         // Divider
         underlineView.translatesAutoresizingMaskIntoConstraints = false;
         underlineView.backgroundColor = appColor;
-        
+        underlineView.layer.cornerRadius = 2;
+        underlineView.clipsToBounds = true;
+
         // Name label
         nameLabel.translatesAutoresizingMaskIntoConstraints = false;
         nameLabel.font = UIFont.preferredFont(forTextStyle: .body);
