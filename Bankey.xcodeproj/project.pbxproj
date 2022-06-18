@@ -23,6 +23,8 @@
 		A2B08C13285CD1D0001AD17A /* OnboardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C12285CD1D0001AD17A /* OnboardingContainerViewController.swift */; };
 		A2B08C17285CDAA9001AD17A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C16285CDAA9001AD17A /* OnboardingViewController.swift */; };
 		A2B08C19285CEA06001AD17A /* OnboardingViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B08C18285CEA06001AD17A /* OnboardingViewControllerBuilder.swift */; };
+		A2C81B41285E534D00093F82 /* DecimalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C81B40285E534D00093F82 /* DecimalUtils.swift */; };
+		A2C81B43285E53C400093F82 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C81B42285E53C400093F82 /* CurrencyFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		A2B08C12285CD1D0001AD17A /* OnboardingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerViewController.swift; sourceTree = "<group>"; };
 		A2B08C16285CDAA9001AD17A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		A2B08C18285CEA06001AD17A /* OnboardingViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerBuilder.swift; sourceTree = "<group>"; };
+		A2C81B40285E534D00093F82 /* DecimalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalUtils.swift; sourceTree = "<group>"; };
+		A2C81B42285E53C400093F82 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,8 @@
 			children = (
 				A21A6140285D26E2004D71A9 /* LocalState.swift */,
 				A21A6144285DE3D7004D71A9 /* UIViewControllers+Utils.swift */,
+				A2C81B40285E534D00093F82 /* DecimalUtils.swift */,
+				A2C81B42285E53C400093F82 /* CurrencyFormatter.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -236,9 +242,11 @@
 				A21A6145285DE3D7004D71A9 /* UIViewControllers+Utils.swift in Sources */,
 				A2B08C10285C97F3001AD17A /* LoginView.swift in Sources */,
 				A2B08C19285CEA06001AD17A /* OnboardingViewControllerBuilder.swift in Sources */,
+				A2C81B43285E53C400093F82 /* CurrencyFormatter.swift in Sources */,
 				A2B08BFE285C94DE001AD17A /* LoginViewController.swift in Sources */,
 				A2B08C17285CDAA9001AD17A /* OnboardingViewController.swift in Sources */,
 				A21A613F285D21D0004D71A9 /* LogoutViewController.swift in Sources */,
+				A2C81B41285E534D00093F82 /* DecimalUtils.swift in Sources */,
 				A2B08BFA285C94DE001AD17A /* AppDelegate.swift in Sources */,
 				A2B08C13285CD1D0001AD17A /* OnboardingContainerViewController.swift in Sources */,
 				A21A614B285DF52E004D71A9 /* AccountSummaryViewController.swift in Sources */,

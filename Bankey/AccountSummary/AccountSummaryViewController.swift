@@ -92,8 +92,30 @@ extension AccountSummaryViewController: UITableViewDataSource {
 // MARK: - Networking
 extension AccountSummaryViewController {
     private func fetchData() {
-        data.append(SummaryCellView.ViewModel(accountType: .Banking, accountName: "Basic Savings"));
-        data.append(SummaryCellView.ViewModel(accountType: .CreditCard, accountName: "Visa Islamic Bank"));
-        data.append(SummaryCellView.ViewModel(accountType: .Investment, accountName: "General Saver"));
+        let savings = SummaryCellView.ViewModel(accountType: .Banking,
+                                                            accountName: "Basic Savings",
+                                                        balance: 929466.23)
+        let chequing = SummaryCellView.ViewModel(accountType: .Banking,
+                                                    accountName: "No-Fee All-In Chequing",
+                                                    balance: 17562.44)
+        let visa = SummaryCellView.ViewModel(accountType: .CreditCard,
+                                                       accountName: "Visa Avion Card",
+                                                       balance: 412.83)
+        let masterCard = SummaryCellView.ViewModel(accountType: .CreditCard,
+                                                       accountName: "Student Mastercard",
+                                                       balance: 50.83)
+        let investment1 = SummaryCellView.ViewModel(accountType: .Investment,
+                                                       accountName: "Tax-Free Saver",
+                                                       balance: 2000.00)
+        let investment2 = SummaryCellView.ViewModel(accountType: .Investment,
+                                                       accountName: "Growth Fund",
+                                                       balance: 15000.00)
+
+        data.append(savings)
+        data.append(chequing)
+        data.append(visa)
+        data.append(masterCard)
+        data.append(investment1)
+        data.append(investment2)
     }
 }

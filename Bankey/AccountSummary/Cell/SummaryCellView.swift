@@ -68,7 +68,7 @@ extension SummaryCellView {
         balanceLabel.textAlignment = .right;
         
         // Balance amount label
-        balanceAmountLabel.attributedText = makeFormattedBalance(dollars: "929,466", cents: "34")
+        balanceAmountLabel.attributedText = makeFormattedBalance(dollars: "XXX,XXX", cents: "XX")
         balanceAmountLabel.textAlignment = .right;
         
         
@@ -144,11 +144,16 @@ extension SummaryCellView {
     struct ViewModel {
         let accountType: AccountType,
             accountName: String;
+        let balance: Decimal;
+        var balanceAsAttributedString: NSAttributedString {
+            CurrencyFormatter().makeAttributedCurrency(balance);
+        }
     }
         
     func configure(with vm: ViewModel) {
         typeLabel.text = vm.accountType.rawValue;
         nameLabel.text = vm.accountName;
+        balanceAmountLabel.attributedText = vm.balanceAsAttributedString
         switch vm.accountType {
         case .Banking:
             underlineView.backgroundColor = appColor;
@@ -159,7 +164,6 @@ extension SummaryCellView {
         case .Investment:
             balanceLabel.text = "Value"
             underlineView.backgroundColor = .systemPurple;
-            
         }
     }
 }
