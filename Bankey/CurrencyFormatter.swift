@@ -31,7 +31,7 @@ struct CurrencyFormatter {
         let decimalSeparator = formatter.decimalSeparator! // "."
         let dollarComponents = dollarsWithDecimal.components(separatedBy: decimalSeparator) // "$929,466" "00"
         var dollars = dollarComponents.first! // "$929,466"
-        dollars.removeFirst(Locale.current.currencyCode?.count ?? 1) // "929,466"
+        dollars.removeFirst((Locale.current.currencyCode?.count ?? 1) + 1) // "929,466"
 
         return dollars
     }

@@ -45,9 +45,9 @@ extension AccountSummaryViewController {
     }
     
     func style(){
-        
         // Table View
         tableView.translatesAutoresizingMaskIntoConstraints = false;
+        tableView.backgroundColor = appColor;
     }
     
     func layout(){

@@ -28,8 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingContainerViewController.delegate = self;
         logoutViewController.delegate = self;
         
-//        let navController = UINavigationController(rootViewController: logoutViewController);
-        window?.rootViewController = mainViewController;
+        let vc = mainViewController;
+        vc.setStatusBar();
+        
+        UINavigationBar.appearance().isTranslucent = false;
+        UINavigationBar.appearance().backgroundColor = appColor;
+        
+        window?.rootViewController = vc;
+        
         return true;
     }
     
@@ -42,7 +48,7 @@ extension AppDelegate: LoginViewControllerDelegate {
         print("from app delegate, did login");
         setRootViewController(
             LocalState.hasOnboarded
-            ? logoutViewController
+            ? mainViewController
             : onboardingContainerViewController
         )
     }
@@ -52,7 +58,7 @@ extension AppDelegate: LoginViewControllerDelegate {
 extension AppDelegate: LogoutViewControllerDelegate {
     func didLogout() {
         print("from app delegate, did logout");
-        setRootViewController(loginViewController)
+        setRootViewController(mainViewController)
     }
 }
 
@@ -61,7 +67,7 @@ extension AppDelegate: OnboardingContainerViewControllerDelegate {
     func didFinishOnboarding() {
         print("from app delegate, did finish onboarding");
         LocalState.hasOnboarded = true;
-        setRootViewController(logoutViewController)
+        setRootViewController(mainViewController)
     }
 }
 
