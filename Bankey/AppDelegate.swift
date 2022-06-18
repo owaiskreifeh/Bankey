@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        let navController = UINavigationController(rootViewController: logoutViewController);
         window?.rootViewController = mainViewController;
-        mainViewController.selectedIndex = 1
         return true;
     }
     

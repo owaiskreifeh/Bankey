@@ -16,7 +16,7 @@ class MainViewController: UITabBarController {
     }
     
     private func setupViews(){
-        let summaryVC   = SummaryViewController(),
+        let summaryVC   = AccountSummaryViewController(),
             moneyVC     = MoneyViewController(),
             moreVC      = MoreViewController();
         
@@ -48,45 +48,6 @@ class MainViewController: UITabBarController {
     }
     
 }
-
-
-class SummaryViewController: UIViewController {
-    
-    let stackView = UIStackView();
-    let label = UILabel();
-    
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        style();
-        layout();
-    }
-    
-}
-
-extension SummaryViewController {
-    func style(){
-        view.backgroundColor = .blue;
-        stackView.translatesAutoresizingMaskIntoConstraints = false;
-        stackView.axis = .vertical;
-        stackView.spacing = 20;
-        
-        label.translatesAutoresizingMaskIntoConstraints = false;
-        label.text = "Summary";
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
-    }
-    
-    func layout(){
-        
-        stackView.addArrangedSubview(label);
-        view.addSubview(stackView);
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-    }
-}
-
 
 class MoneyViewController: UIViewController {
     

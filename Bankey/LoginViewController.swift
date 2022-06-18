@@ -22,9 +22,7 @@ class LoginViewController: UIViewController {
     
     var username: String? { loginView.usernameTextField.text }
     var password: String? { loginView.passwordTextField.text }
-    
-    var sag: UILayoutGuide { view.safeAreaLayoutGuide }
-    
+        
     weak var delegate: LoginViewControllerDelegate?;
     
     override func viewDidLoad() {

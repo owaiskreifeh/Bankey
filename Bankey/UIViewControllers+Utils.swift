@@ -9,6 +9,8 @@ import UIKit;
 
 extension UIViewController {
     
+    var sag: UILayoutGuide { view.safeAreaLayoutGuide }
+    
     func setStatusBar(){
         let navBarAppearance = UINavigationBarAppearance();
         navBarAppearance.configureWithTransparentBackground()
