@@ -31,6 +31,9 @@ extension AccountSummaryViewController {
     func setup(){
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.register(SummaryCellView.self, forCellReuseIdentifier: SummaryCellView.reuseId);
+        tableView.rowHeight = SummaryCellView.rowHeight;
+        tableView.tableFooterView = UIView(); // blank uiview
         
         setupHeaderView()
     }
@@ -72,12 +75,13 @@ extension AccountSummaryViewController: UITableViewDelegate {
 }
 
 
-// MARK: -
+// MARK: - UITableViewDataSource
 extension AccountSummaryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell();
-        cell.textLabel?.text = data[indexPath.row];
+        let cell = tableView.dequeueReusableCell(withIdentifier: SummaryCellView.reuseId) as! SummaryCellView;
+        cell.typeLabel.text = data[indexPath.row];
         return cell;
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
