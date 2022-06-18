@@ -5,7 +5,9 @@
 //  Created by Owais Kreifeh on 17/06/2022.
 //
 
-import UIKit
+import UIKit;
+
+let appColor: UIColor = .systemTeal;
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let onboardingContainerViewController = OnboardingContainerViewController();
     let logoutViewController = LogoutViewController();
     
+    let mainViewController = MainViewController();
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds);
@@ -25,7 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingContainerViewController.delegate = self;
         logoutViewController.delegate = self;
         
-        window?.rootViewController = loginViewController;
+//        let navController = UINavigationController(rootViewController: logoutViewController);
+        window?.rootViewController = mainViewController;
+        mainViewController.selectedIndex = 1
         return true;
     }
     

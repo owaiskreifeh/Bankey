@@ -17,6 +17,7 @@ class LogoutViewController: UIViewController {
     let stackView = UIStackView();
     let label = UILabel();
     let logoutButton = UIButton(type: .roundedRect)
+    let onboardingButton = UIButton(configuration: .filled())
     
     weak var delegate: LogoutViewControllerDelegate?;
     
@@ -33,6 +34,7 @@ extension LogoutViewController {
     
     func setup(){
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .primaryActionTriggered)
+        onboardingButton.addTarget(self, action: #selector(onboardingTapped), for: .primaryActionTriggered);
     }
     
     func style(){
@@ -47,12 +49,15 @@ extension LogoutViewController {
         logoutButton.translatesAutoresizingMaskIntoConstraints = false;
         logoutButton.setTitle("Logout", for: []);
         
+        onboardingButton.setTitle("Show onboarding", for: [])
+        
     }
     
     func layout(){
         
         stackView.addArrangedSubview(label);
         stackView.addArrangedSubview(logoutButton);
+        stackView.addArrangedSubview(onboardingButton);
 
         view.addSubview(stackView);
         
@@ -68,5 +73,10 @@ extension LogoutViewController {
 extension LogoutViewController {
     @objc func logoutTapped(){
         delegate?.didLogout()
+    }
+    @objc func onboardingTapped(){
+        print("Showing onboarding")
+        navigationController?.pushViewController(OnboardingContainerViewController(), animated: true)
+//        present(OnboardingContainerViewController(), animated: true)
     }
 }
