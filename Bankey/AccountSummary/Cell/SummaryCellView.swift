@@ -55,6 +55,7 @@ extension SummaryCellView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false;
         nameLabel.font = UIFont.preferredFont(forTextStyle: .body);
         nameLabel.adjustsFontForContentSizeCategory = true;
+        nameLabel.adjustsFontSizeToFitWidth = true;
         nameLabel.text = "Title here Account name";
         
         // Balance stack view
@@ -66,12 +67,13 @@ extension SummaryCellView {
         balanceLabel.text = "Balance Label";
         balanceLabel.font = UIFont.preferredFont(forTextStyle: .caption1);
         balanceLabel.textAlignment = .right;
-        
+        balanceLabel.adjustsFontSizeToFitWidth = true;
+
         // Balance amount label
         balanceAmountLabel.attributedText = makeFormattedBalance(dollars: "XXX,XXX", cents: "XX")
         balanceAmountLabel.textAlignment = .right;
-        
-        
+        balanceAmountLabel.adjustsFontSizeToFitWidth = true;
+
         // Chevron image
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false;
         chevronImageView.image = UIImage(systemName: "chevron.forward")?.withTintColor(appColor, renderingMode: .alwaysOriginal)
@@ -107,6 +109,7 @@ extension SummaryCellView {
             // Balance stack view
             balanceStackView.topAnchor.constraint(equalToSystemSpacingBelow: underlineView.bottomAnchor, multiplier: 0),
             contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: balanceStackView.trailingAnchor, multiplier: 4),
+            balanceStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: nameLabel.trailingAnchor, multiplier: 1),
             // Chevron image
             chevronImageView.topAnchor.constraint(equalToSystemSpacingBelow: balanceLabel.topAnchor, multiplier: 1),
             contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: chevronImageView.trailingAnchor, multiplier: 1),

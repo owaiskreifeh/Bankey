@@ -30,10 +30,9 @@ struct CurrencyFormatter {
         let formatter = NumberFormatter()
         let decimalSeparator = formatter.decimalSeparator! // "."
         let dollarComponents = dollarsWithDecimal.components(separatedBy: decimalSeparator) // "$929,466" "00"
-        var dollars = dollarComponents.first! // "$929,466"
-        dollars.removeFirst((Locale.current.currencyCode?.count ?? 1) + 1) // "929,466"
-
-        return dollars
+        let dollars = dollarComponents.first! // "$929,466"
+        
+        return dollars.replacingOccurrences(of: Locale.current.currencySymbol!, with: "").trimmingCharacters(in: .whitespaces)
     }
     
     // Convert 0.23 > 23
@@ -65,7 +64,7 @@ struct CurrencyFormatter {
         let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
         let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
         
-        let rootString = NSMutableAttributedString(string: (Locale.current.currencyCode?.uppercased())!, attributes: dollarSignAttributes)
+        let rootString = NSMutableAttributedString(string: (Locale.current.currencySymbol?.uppercased())!, attributes: dollarSignAttributes)
         let dollarString = NSAttributedString(string: dollars, attributes: dollarAttributes)
         let centString = NSAttributedString(string: cents, attributes: centAttributes)
         

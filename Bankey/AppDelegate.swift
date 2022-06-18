@@ -26,17 +26,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         loginViewController.delegate = self;
         onboardingContainerViewController.delegate = self;
-        logoutViewController.delegate = self;
         
-        let vc = mainViewController;
-        vc.setStatusBar();
+        registerForNotifications();
         
-        UINavigationBar.appearance().isTranslucent = false;
-        UINavigationBar.appearance().backgroundColor = appColor;
-        
-        window?.rootViewController = vc;
+        displayLogin();
         
         return true;
+    }
+    
+    private func displayLogin() {
+        setRootViewController(loginViewController);
+    }
+    
+    private func displayNextScreen(){
+        if LocalState.hasOnboarded {
+            prepMainView();
+            setRootViewController(mainViewController);
+        } else {
+            setRootViewController(onboardingContainerViewController);
+        }
+    }
+    
+    private func prepMainView(){
+        mainViewController.setStatusBar();
+        UINavigationBar.appearance().isTranslucent = false;
+        UINavigationBar.appearance().backgroundColor = appColor;
+    }
+    
+    private func registerForNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: .logout, object: nil)
     }
     
 }
@@ -46,28 +64,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: LoginViewControllerDelegate {
     func didLogin() {
         print("from app delegate, did login");
-        setRootViewController(
-            LocalState.hasOnboarded
-            ? mainViewController
-            : onboardingContainerViewController
-        )
+        displayNextScreen();
     }
 }
 
-// MARK: - LogoutViewControllerDelegate
-extension AppDelegate: LogoutViewControllerDelegate {
-    func didLogout() {
-        print("from app delegate, did logout");
-        setRootViewController(mainViewController)
-    }
-}
 
 // MARK: - OnboardingContainerViewControllerDelegate
 extension AppDelegate: OnboardingContainerViewControllerDelegate {
     func didFinishOnboarding() {
         print("from app delegate, did finish onboarding");
         LocalState.hasOnboarded = true;
-        setRootViewController(mainViewController)
+        displayNextScreen();
     }
 }
 
@@ -84,5 +91,14 @@ extension AppDelegate {
         window.rootViewController = vc;
         window.makeKeyAndVisible();
         UIView.transition(with: window, duration: 0.3, options: .transitionFlipFromTop, animations: nil, completion: nil);
+    }
+}
+
+
+// MARK: - Notifications
+extension AppDelegate {
+    @objc func didLogout(){
+        print("From app delegate got notification didLogout")
+        displayLogin();
     }
 }

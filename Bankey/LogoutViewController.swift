@@ -35,6 +35,8 @@ extension LogoutViewController {
     func setup(){
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .primaryActionTriggered)
         onboardingButton.addTarget(self, action: #selector(onboardingTapped), for: .primaryActionTriggered);
+        
+        navigationController?.navigationBar.backgroundColor = .systemBackground;
     }
     
     func style(){

@@ -17,8 +17,8 @@ class MainViewController: UITabBarController {
     
     private func setupViews(){
         let summaryVC   = AccountSummaryViewController(),
-            moneyVC     = MoneyViewController(),
-            moreVC      = MoreViewController();
+        moneyVC     = MoneyViewController(),
+        moreVC      = MoreViewController();
         
         summaryVC.setTabBar(imageName: "list.bullet.circle", title: "Summary");
         moneyVC.setTabBar(imageName: "dollarsign.circle", title: "Money");
@@ -31,7 +31,7 @@ class MainViewController: UITabBarController {
         summaryNC.navigationBar.barTintColor = appColor;
         hideNavigationBarLine(summaryNC.navigationBar)
         
-        let tabBarList = [ summaryNC, moneyNC, moreNC ];
+        let tabBarList = [summaryNC, moneyNC, moreNC];
         viewControllers = tabBarList;
     }
     
@@ -65,8 +65,8 @@ class MoneyViewController: UIViewController {
 
 extension MoneyViewController {
     func style(){
-        view.backgroundColor = .systemRed;
-
+        view.backgroundColor = appColor;
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false;
         stackView.axis = .vertical;
         stackView.spacing = 20;
@@ -104,14 +104,14 @@ class MoreViewController: UIViewController {
 
 extension MoreViewController {
     func style(){
-        view.backgroundColor = .green;
-
+        view.backgroundColor = appColor;
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false;
         stackView.axis = .vertical;
         stackView.spacing = 20;
         
         label.translatesAutoresizingMaskIntoConstraints = false;
-        label.text = "TEXT LABEL TODO";
+        label.text = "More";
         label.font = UIFont.preferredFont(forTextStyle: .title1)
     }
     

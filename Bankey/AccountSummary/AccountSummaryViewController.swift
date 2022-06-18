@@ -10,6 +10,11 @@ import UIKit
 class AccountSummaryViewController: UIViewController {
     
     let tableView = UITableView();
+    lazy var logoutBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped));
+        barButtonItem.tintColor = .label;
+        return barButtonItem;
+    }();
     
     var data: [SummaryCellView.ViewModel] = [];
     
@@ -18,11 +23,17 @@ class AccountSummaryViewController: UIViewController {
         setup();
         style();
         layout();
+        
+        setupNavigationBar();
     }
     
 }
 
 extension AccountSummaryViewController {
+    
+    func setupNavigationBar(){
+        navigationItem.rightBarButtonItem = logoutBarButtonItem
+    }
     
     func setup(){
         tableView.delegate = self;
@@ -117,5 +128,14 @@ extension AccountSummaryViewController {
         data.append(masterCard)
         data.append(investment1)
         data.append(investment2)
+    }
+}
+
+
+// MARK: - Actions
+extension AccountSummaryViewController {
+    @objc func logoutTapped () {
+        print("Logout tapped");
+        NotificationCenter.default.post(name: .logout, object: nil)
     }
 }
