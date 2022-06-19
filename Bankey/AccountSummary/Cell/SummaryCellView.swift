@@ -8,6 +8,10 @@
 import Foundation
 import UIKit;
 
+enum AccountType: String, Codable {
+    case Banking, CreditCard, Investment;
+}
+
 class SummaryCellView: UITableViewCell {
     
     let viewModel: ViewModel? = nil;
@@ -23,7 +27,8 @@ class SummaryCellView: UITableViewCell {
     let chevronImageView = UIImageView();
     
     static let reuseId = "SummaryCell";
-    static let rowHeight: CGFloat = 112
+    static let rowHeight: CGFloat = 112;
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -141,11 +146,7 @@ extension SummaryCellView {
 
 // MARK: - ViewModel
 extension SummaryCellView {
-    
-    enum AccountType: String {
-        case Banking, CreditCard, Investment;
-    }
-    
+
     struct ViewModel {
         let accountType: AccountType,
             accountName: String;

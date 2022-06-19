@@ -10,7 +10,22 @@ import UIKit
 class AccountSummaryHeaderView: UIView {
         
     @IBOutlet var contentView: AccountSummaryHeaderView!
+    
+    // Config
+    @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     let shakeyBellView = ShakeyBellView();
+    
+    struct ViewModel {
+        let welcomeMessage, name : String;
+        let date: Date;
+        
+        var dateFormatted: String {
+            return date.dayMonthYearString
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -32,6 +47,12 @@ class AccountSummaryHeaderView: UIView {
     
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 144)
+    }
+    
+    func configure(with viewModel: ViewModel){
+        welcomeLabel.text = viewModel.welcomeMessage;
+        nameLabel.text = viewModel.name;
+        dateLabel.text = viewModel.dateFormatted;
     }
 
 }

@@ -9,16 +9,23 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
     
-    let tableView = UITableView();
+    // request model
+    var profile: Profile?;
+    var accounts: [Account] = [];
     
+    // view model
+    var headerViewModel = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Welcome", name: "", date: Date());
+    var accountCellViewModels: [SummaryCellView.ViewModel] = [];
+    
+    let tableView = UITableView();
+    var headerView = AccountSummaryHeaderView(frame: .zero);
+
     lazy var logoutBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped));
         barButtonItem.tintColor = .label;
         return barButtonItem;
     }();
-    
-    var data: [SummaryCellView.ViewModel] = [];
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad();
         setup();
@@ -44,16 +51,15 @@ extension AccountSummaryViewController {
         tableView.tableFooterView = UIView(); // blank uiview
                 
         setupHeaderView();
-        
-        fetchData();
+        fetchDataAndLoadViews()
+
     }
     
     func setupHeaderView(){
-        let header = AccountSummaryHeaderView(frame: .zero);
-        let size = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize);
-        header.frame.size = size;
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize);
+        headerView.frame.size = size;
         
-        tableView.tableHeaderView = header;
+        tableView.tableHeaderView = headerView;
     }
     
     func style(){
@@ -91,50 +97,17 @@ extension AccountSummaryViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension AccountSummaryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard !data.isEmpty else { return UITableViewCell() }
+        guard !accountCellViewModels.isEmpty else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: SummaryCellView.reuseId) as! SummaryCellView;
-        cell.configure(with: data[indexPath.row]);
+        cell.configure(with: accountCellViewModels[indexPath.row]);
         return cell;
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count;
+        return accountCellViewModels.count;
     }
 }
-
-
-// MARK: - Networking
-extension AccountSummaryViewController {
-    private func fetchData() {
-        let savings = SummaryCellView.ViewModel(accountType: .Banking,
-                                                            accountName: "Basic Savings",
-                                                        balance: 929466.23)
-        let chequing = SummaryCellView.ViewModel(accountType: .Banking,
-                                                    accountName: "No-Fee All-In Chequing",
-                                                    balance: 17562.44)
-        let visa = SummaryCellView.ViewModel(accountType: .CreditCard,
-                                                       accountName: "Visa Avion Card",
-                                                       balance: 412.83)
-        let masterCard = SummaryCellView.ViewModel(accountType: .CreditCard,
-                                                       accountName: "Student Mastercard",
-                                                       balance: 50.83)
-        let investment1 = SummaryCellView.ViewModel(accountType: .Investment,
-                                                       accountName: "Tax-Free Saver",
-                                                       balance: 2000.00)
-        let investment2 = SummaryCellView.ViewModel(accountType: .Investment,
-                                                       accountName: "Growth Fund",
-                                                       balance: 15000.00)
-
-        data.append(savings)
-        data.append(chequing)
-        data.append(visa)
-        data.append(masterCard)
-        data.append(investment1)
-        data.append(investment2)
-    }
-}
-
 
 // MARK: - Actions
 extension AccountSummaryViewController {
