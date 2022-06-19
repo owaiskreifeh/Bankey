@@ -10,6 +10,7 @@ import UIKit
 class AccountSummaryHeaderView: UIView {
         
     @IBOutlet var contentView: AccountSummaryHeaderView!
+    let shakeyBellView = ShakeyBellView();
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -26,6 +27,7 @@ class AccountSummaryHeaderView: UIView {
     func commonInit(){
         Bundle(for: AccountSummaryHeaderView.self)
             .loadNibNamed(String(describing: AccountSummaryHeaderView.self), owner: self);
+        shakeyBellView.tapAction = shakeyBellViewTapped;
     }
     
     override var intrinsicContentSize: CGSize {
@@ -43,13 +45,25 @@ extension AccountSummaryHeaderView {
     
     func layout() {
         addSubview(contentView)
+        contentView.addSubview(shakeyBellView);
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
+            // ShakeyBell View
+            shakeyBellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            shakeyBellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
     
+}
+
+
+// MARK: - Actions
+extension AccountSummaryHeaderView {
+    func shakeyBellViewTapped() {
+        print("Header shakeybell tapped")
+    }
 }

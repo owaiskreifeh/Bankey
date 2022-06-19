@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible();
         window?.backgroundColor = .systemBackground;
         
+        // Quick test
+//        setRootViewController(ShakeyBellViewAnimationRagViewController());
+//        return true;
+        
         loginViewController.delegate = self;
         onboardingContainerViewController.delegate = self;
         

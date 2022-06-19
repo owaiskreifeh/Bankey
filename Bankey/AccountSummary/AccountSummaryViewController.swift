@@ -10,6 +10,7 @@ import UIKit
 class AccountSummaryViewController: UIViewController {
     
     let tableView = UITableView();
+    
     lazy var logoutBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped));
         barButtonItem.tintColor = .label;
@@ -41,7 +42,7 @@ extension AccountSummaryViewController {
         tableView.register(SummaryCellView.self, forCellReuseIdentifier: SummaryCellView.reuseId);
         tableView.rowHeight = SummaryCellView.rowHeight;
         tableView.tableFooterView = UIView(); // blank uiview
-        
+                
         setupHeaderView();
         
         fetchData();
