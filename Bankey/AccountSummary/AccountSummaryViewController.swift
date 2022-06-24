@@ -51,7 +51,7 @@ extension AccountSummaryViewController {
         tableView.tableFooterView = UIView(); // blank uiview
                 
         setupHeaderView();
-        fetchDataAndLoadViews()
+        fetchData()
 
     }
     
@@ -67,8 +67,6 @@ extension AccountSummaryViewController {
         // Table View
         tableView.translatesAutoresizingMaskIntoConstraints = false;
         tableView.backgroundColor = appColor;
-        tableView.clipsToBounds = true;
-        tableView.layer.cornerRadius = 8
     }
     
     func layout(){

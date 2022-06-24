@@ -36,7 +36,7 @@ extension AccountSummaryViewController {
     
     func fetchProfile(for userId: String, completion: @escaping (Result<Profile, NetworkError>) -> Void){
         let baseURL = "https://fierce-retreat-36855.herokuapp.com/bankey"
-        let profilePath = "\(baseURL)/profile/\(userId)";
+        let profilePath = "\(baseURL)/profile/\(userId)?q=66";
         print(profilePath)
         let url = URL(string: profilePath);
         
@@ -69,34 +69,41 @@ extension AccountSummaryViewController {
         task.resume();
     }
     
-    func fetchDataAndLoadViews() {
+    func fetchData() {
         
+        let group = DispatchGroup();
+        
+        group.enter();
         fetchProfile(for: "1") { result in
             switch result {
             case .success(let profile):
                 self.profile = profile
                 self.configureTableHeaderView(with: profile)
-                self.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            group.leave();
         }
         
+        group.enter()
         fetchAccounts(forUserId: "1") { result in
             switch result {
             case .success(let accounts):
                 self.accounts = accounts
                 self.configureTableCells(with: accounts)
-                self.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            group.leave();
         }
         
+        group.notify(queue: .main) {
+            self.tableView.reloadData();
+        }
     }
     
     func fetchAccounts(forUserId userId: String, completion: @escaping (Result<[Account],NetworkError>) -> Void) {
-        let url = URL(string: "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)/accounts")!
+        let url = URL(string: "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)/accounts?q=55")!
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
