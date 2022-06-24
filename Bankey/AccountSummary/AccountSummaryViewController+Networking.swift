@@ -37,7 +37,6 @@ extension AccountSummaryViewController {
     func fetchProfile(for userId: String, completion: @escaping (Result<Profile, NetworkError>) -> Void){
         let baseURL = "https://fierce-retreat-36855.herokuapp.com/bankey"
         let profilePath = "\(baseURL)/profile/\(userId)?q=66";
-        print(profilePath)
         let url = URL(string: profilePath);
         
         guard let url = url else {
@@ -72,9 +71,9 @@ extension AccountSummaryViewController {
     func fetchData() {
         
         let group = DispatchGroup();
-        
+        let userId = String(Int.random(in: 1..<4))
         group.enter();
-        fetchProfile(for: "1") { result in
+        fetchProfile(for: userId) { result in
             switch result {
             case .success(let profile):
                 self.profile = profile
@@ -86,7 +85,7 @@ extension AccountSummaryViewController {
         }
         
         group.enter()
-        fetchAccounts(forUserId: "1") { result in
+        fetchAccounts(forUserId: userId) { result in
             switch result {
             case .success(let accounts):
                 self.accounts = accounts
@@ -99,6 +98,7 @@ extension AccountSummaryViewController {
         
         group.notify(queue: .main) {
             self.tableView.reloadData();
+            self.tableView.refreshControl?.endRefreshing();
         }
     }
     
