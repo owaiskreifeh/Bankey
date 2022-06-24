@@ -30,13 +30,17 @@ struct Account: Codable {
     let name: String
     let amount: Decimal
     let createdDateTime: Date
+    
+    static func makeSkeleton () -> Account {
+        return Account(id: "1", type: .Banking, name: "Account name", amount: 0.0, createdDateTime: Date())
+    }
 }
 
 extension AccountSummaryViewController {
     
     func fetchProfile(for userId: String, completion: @escaping (Result<Profile, NetworkError>) -> Void){
         let baseURL = "https://fierce-retreat-36855.herokuapp.com/bankey"
-        let profilePath = "\(baseURL)/profile/\(userId)?q=66";
+        let profilePath = "\(baseURL)/profile/\(userId)";
         let url = URL(string: profilePath);
         
         guard let url = url else {
@@ -77,7 +81,6 @@ extension AccountSummaryViewController {
             switch result {
             case .success(let profile):
                 self.profile = profile
-                self.configureTableHeaderView(with: profile)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -89,7 +92,6 @@ extension AccountSummaryViewController {
             switch result {
             case .success(let accounts):
                 self.accounts = accounts
-                self.configureTableCells(with: accounts)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -97,13 +99,20 @@ extension AccountSummaryViewController {
         }
         
         group.notify(queue: .main) {
-            self.tableView.reloadData();
             self.tableView.refreshControl?.endRefreshing();
+            guard let profile = self.profile else { return }
+            self.isLoaded = true;
+
+            self.configureTableHeaderView(with: profile)
+            self.configureTableCells(with: self.accounts)
+
+            self.tableView.reloadData();
         }
     }
     
     func fetchAccounts(forUserId userId: String, completion: @escaping (Result<[Account],NetworkError>) -> Void) {
-        let url = URL(string: "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)/accounts?q=55")!
+        let rand = Int.random(in: 1...100)
+        let url = URL(string: "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)/accounts?q=\(rand)")!
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
@@ -132,7 +141,7 @@ extension AccountSummaryViewController {
         
     }
     
-    private func configureTableCells(with accounts: [Account]) {
+    func configureTableCells(with accounts: [Account]) {
         accountCellViewModels = accounts.map { account in
             SummaryCellView.ViewModel(accountType: account.type,
                                          accountName: account.name,
