@@ -35,6 +35,7 @@
 		A2D744EB285FC2DA00E591C9 /* AccountSummaryViewController+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D744EA285FC2DA00E591C9 /* AccountSummaryViewController+Networking.swift */; };
 		A2E4C6422865F6E30074BCFC /* SkeletonLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4C6412865F6E30074BCFC /* SkeletonLoadable.swift */; };
 		A2E4C6442865F7B10074BCFC /* SkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4C6432865F7B10074BCFC /* SkeletonCell.swift */; };
+		A2E4C64728660F850074BCFC /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4C64628660F850074BCFC /* ProfileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		A2D744EA285FC2DA00E591C9 /* AccountSummaryViewController+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSummaryViewController+Networking.swift"; sourceTree = "<group>"; };
 		A2E4C6412865F6E30074BCFC /* SkeletonLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadable.swift; sourceTree = "<group>"; };
 		A2E4C6432865F7B10074BCFC /* SkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonCell.swift; sourceTree = "<group>"; };
+		A2E4C64628660F850074BCFC /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		A21A6148285DF4F4004D71A9 /* AccountSummary */ = {
 			isa = PBXGroup;
 			children = (
+				A2E4C64528660F760074BCFC /* Networking */,
 				A21A614A285DF52E004D71A9 /* AccountSummaryViewController.swift */,
 				A2D744EA285FC2DA00E591C9 /* AccountSummaryViewController+Networking.swift */,
 				A2C81B3F285E24E300093F82 /* Cell */,
@@ -232,6 +235,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		A2E4C64528660F760074BCFC /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				A2E4C64628660F850074BCFC /* ProfileManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2E4C6422865F6E30074BCFC /* SkeletonLoadable.swift in Sources */,
+				A2E4C64728660F850074BCFC /* ProfileManager.swift in Sources */,
 				A21A614F285DFA8A004D71A9 /* AccountSummaryHeaderView.swift in Sources */,
 				A2D744E9285FC10E00E591C9 /* Date+Utils.swift in Sources */,
 				A21A6145285DE3D7004D71A9 /* UIViewControllers+Utils.swift in Sources */,

@@ -6,23 +6,7 @@
 //
 
 import Foundation
-
-
-enum NetworkError: Error {
-    case serverError, decodeError;
-}
-
-struct Profile: Codable {
-    let id: String
-    let firstName: String
-    let lastName: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-    }
-}
+import UIKit
 
 struct Account: Codable {
     let id: String
@@ -38,50 +22,18 @@ struct Account: Codable {
 
 extension AccountSummaryViewController {
     
-    func fetchProfile(for userId: String, completion: @escaping (Result<Profile, NetworkError>) -> Void){
-        let baseURL = "https://fierce-retreat-36855.herokuapp.com/bankey"
-        let profilePath = "\(baseURL)/profile/\(userId)";
-        let url = URL(string: profilePath);
-        
-        guard let url = url else {
-            print("Can not init URL")
-            return
-        }
-        
-        let session = URLSession(configuration: .default);
-        let task = session.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
-                // check for errors, and unwrap data
-                guard let data = data, error == nil else {
-                    completion(.failure(.serverError))
-                    return
-                }
-                
-                // json decode
-                let decoder = JSONDecoder();
-                
-                do {
-                    let profile = try decoder.decode(Profile.self, from: data);
-                    completion(.success(profile))
-                } catch{
-                    completion(.failure(.decodeError))
-                }
-            }
-            
-        };
-        task.resume();
-    }
     
     func fetchData() {
         
         let group = DispatchGroup();
         let userId = String(Int.random(in: 1..<4))
         group.enter();
-        fetchProfile(for: userId) { result in
+        profileManager.fetchProfile(forUserId: userId) { result in
             switch result {
             case .success(let profile):
                 self.profile = profile
             case .failure(let error):
+                self.showErrorAlert(error);
                 print(error.localizedDescription)
             }
             group.leave();
@@ -148,7 +100,20 @@ extension AccountSummaryViewController {
                                          balance: account.amount)
         }
     }
-    
+
+    func showErrorAlert(_ error: NetworkError) {
+        let title: String;
+        switch error {
+        case .serverError:
+            title = "Network error";
+        case .decodeError:
+            title = "Internal app error";
+        }
+        let alert = UIAlertController(title: title, message: error.localizedDescription , preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Close", style: .cancel));
+        
+        present(alert, animated: true)
+    }
     
 }
 

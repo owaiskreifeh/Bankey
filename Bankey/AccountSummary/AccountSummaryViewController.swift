@@ -22,6 +22,8 @@ class AccountSummaryViewController: UIViewController {
     var headerView = AccountSummaryHeaderView(frame: .zero);
     let refreshControl = UIRefreshControl();
     
+    // Networking
+    var profileManager = ProfileManager();
     var isLoaded = false;
     
     lazy var logoutBarButtonItem: UIBarButtonItem = {
